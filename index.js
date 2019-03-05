@@ -12,10 +12,12 @@ app.use(log.requestLogger);
 const userRoute = require('./routes/user.route');
 const productRoute = require('./routes/product.route');
 const cartRoute = require('./routes/cart.route');
+const departmentRoute = require('./routes/department.route');
 
 app.use('/user', userRoute);
-app.use('/product', productRoute);
+app.use('/product', jsonParser, productRoute);
 app.use('/cart', jsonParser, cartRoute);
+app.use('/department', jsonParser, departmentRoute);
 
 app.get('/', (req, res) => {
   res.send('Hey');
@@ -41,7 +43,7 @@ app.use((err, req, res) => {
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
   log.info('App is running');
-  if (dbConfig.dbInstance) {
+  if (dbConfig) {
     log.info('DB Connected!!');
   }
 });

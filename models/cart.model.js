@@ -18,7 +18,7 @@ module.exports = {
       type: Sequelize.INTEGER(11),
       allowNull: false,
     },
-    attributes: {
+    attribs: {
       type: Sequelize.STRING(1000),
       allowNull: false,
     },

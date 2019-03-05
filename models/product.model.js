@@ -8,6 +8,7 @@ module.exports = {
     department_id: {
       type: Sequelize.INTEGER(11),
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: Sequelize.STRING(100),
@@ -25,6 +26,7 @@ module.exports = {
     category_id: {
       type: Sequelize.INTEGER(11),
       primaryKey: true,
+      autoIncrement: true,
     },
     department_id: {
       type: Sequelize.INTEGER(11),
@@ -46,6 +48,7 @@ module.exports = {
     product_id: {
       type: Sequelize.INTEGER(11),
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: Sequelize.STRING(100),

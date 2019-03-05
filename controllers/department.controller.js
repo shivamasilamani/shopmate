@@ -2,14 +2,14 @@ const productModel = require('../models/product.model');
 const crudUtil = require('../utils/crud.util');
 
 module.exports = {
-  getProducts: async (req, res) => {
+  getDepartments: async (req, res) => {
     if (req) {
       try {
-        const products = await crudUtil.getAll(productModel.Product, req.query);
+        const departments = await crudUtil.getAll(productModel.Department, req.query);
         res.status(200);
         res.json({
-          products: products.rows,
-          count: products.count,
+          departments: departments.rows,
+          count: departments.count,
         });
       } catch (err) {
         res.status(err.status);
@@ -17,23 +17,23 @@ module.exports = {
       }
     }
   },
-  getProductDetail: async (req, res) => {
+  getDepartmentDetail: async (req, res) => {
     if (req) {
       try {
-        const product = await crudUtil.getOne(productModel.Product, req.params.id);
+        const department = await crudUtil.getOne(productModel.Department, req.params.id);
         res.status(200);
-        res.json({ Product: product });
+        res.json({ department });
       } catch (err) {
         res.status(err.status);
         res.json(err.error);
       }
     }
   },
-  createProduct: async (req, res) => {
+  createDepartment: async (req, res) => {
     if (req) {
       try {
         const payload = req.body;
-        await crudUtil.create(productModel.Product, payload);
+        await crudUtil.create(productModel.Department, payload);
         res.status(201);
         res.send('Created');
       } catch (err) {
@@ -42,14 +42,14 @@ module.exports = {
       }
     }
   },
-  updateProduct: async (req, res) => {
+  updateDepartment: async (req, res) => {
     if (req) {
       try {
         const payload = req.body;
         const whereOption = {
-          product_id: req.params.id,
+          department_id: req.params.id,
         };
-        await crudUtil.update(productModel.Product, payload, whereOption);
+        await crudUtil.update(productModel.Department, payload, whereOption);
         res.status(204);
         res.send('Updated');
       } catch (err) {
@@ -58,22 +58,16 @@ module.exports = {
       }
     }
   },
-  deleteProduct: async (req, res) => {
+  deleteDepartment: async (req, res) => {
     if (req) {
       try {
         if (!req.params.id) {
-          const error = {
-            status: 400,
-            error: {
-              message: 'Bad Request',
-            },
-          };
-          throw new Error(error);
+          throw new Error('Bad Request');
         }
         const whereOption = {
-          product_id: req.params.id,
+          department_id: req.params.id,
         };
-        await crudUtil.delete(productModel.Product, whereOption);
+        await crudUtil.delete(productModel.Department, whereOption);
         res.status(204);
         res.send('Deleted');
       } catch (err) {
