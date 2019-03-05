@@ -2,6 +2,7 @@ const op = require('sequelize').Op;
 const log = require('../config/log.config');
 
 module.exports = {
+  // Queries a DB table to find all records which match the given conditions
   getAll: (model, query) => {
     const getPromise = new Promise((resolve, reject) => {
       const options = {};
@@ -43,6 +44,7 @@ module.exports = {
     });
     return getPromise;
   },
+  // Queries a DB table to find one row with the given ID
   getOne: (model, id) => {
     const getOnePromise = new Promise((resolve, reject) => {
       model.findByPk(id)
@@ -72,6 +74,7 @@ module.exports = {
     });
     return getOnePromise;
   },
+  // Creates an entry in DB table with the given payload
   create: (model, payload) => {
     const createPromise = new Promise((resolve, reject) => {
       model.create(payload)
@@ -91,6 +94,7 @@ module.exports = {
     });
     return createPromise;
   },
+  // Updates an entry in DB table with the given payload
   update: (model, payload, whereOption) => {
     const updatePromise = new Promise((resolve, reject) => {
       model.update(payload, { where: whereOption })
@@ -110,6 +114,7 @@ module.exports = {
     });
     return updatePromise;
   },
+  // Deletes an entry from DB table
   delete: (model, whereOption) => {
     const destroyPromise = new Promise((resolve, reject) => {
       model.destroy({ where: whereOption })

@@ -11,16 +11,20 @@ app.use(log.requestLogger);
 
 const userRoute = require('./routes/user.route');
 const productRoute = require('./routes/product.route');
-const cartRoute = require('./routes/cart.route');
 const departmentRoute = require('./routes/department.route');
+const categoryRoute = require('./routes/category.route');
+const attributeRoute = require('./routes/attribute.route');
+const cartRoute = require('./routes/cart.route');
 
 app.use('/user', userRoute);
 app.use('/product', jsonParser, productRoute);
-app.use('/cart', jsonParser, cartRoute);
 app.use('/department', jsonParser, departmentRoute);
+app.use('/category', jsonParser, categoryRoute);
+app.use('/attribute', jsonParser, attributeRoute);
+app.use('/cart', jsonParser, cartRoute);
 
 app.get('/', (req, res) => {
-  res.send('Hey');
+  res.send('App is running...');
 });
 
 if (process.env.NODE_ENV === 'production') {
