@@ -20,7 +20,7 @@ module.exports = {
   getAttributeDetail: async (req, res) => {
     if (req) {
       try {
-        const Attribute = await crudUtil.getOne(productModel.Attribute, req.params.id);
+        const Attribute = await crudUtil.getById(productModel.Attribute, req.params.id);
         res.status(200);
         res.json({ Attribute });
       } catch (err) {

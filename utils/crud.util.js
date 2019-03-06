@@ -39,14 +39,14 @@ module.exports = {
               message: 'Bad Request',
             },
           };
-          reject(new Error(error));
+          reject(error);
         });
     });
     return getPromise;
   },
   // Queries a DB table to find one row with the given ID
-  getOne: (model, id) => {
-    const getOnePromise = new Promise((resolve, reject) => {
+  getById: (model, id) => {
+    const getByIdPromise = new Promise((resolve, reject) => {
       model.findByPk(id)
         .then((item) => {
           if (item) {
@@ -58,7 +58,7 @@ module.exports = {
                 message: 'Not Found',
               },
             };
-            reject(new Error(error));
+            reject(error);
           }
         })
         .catch((err) => {
@@ -69,10 +69,40 @@ module.exports = {
               message: 'Bad Request',
             },
           };
-          reject(new Error(error));
+          reject(error);
         });
     });
-    return getOnePromise;
+    return getByIdPromise;
+  },
+  // Queries a DB table to find one row with the given condition
+  getOne: (model, whereOption) => {
+    const getByIdPromise = new Promise((resolve, reject) => {
+      model.findOne({ where: whereOption })
+        .then((item) => {
+          if (item) {
+            resolve(item);
+          } else {
+            const error = {
+              status: 404,
+              error: {
+                message: 'Not Found',
+              },
+            };
+            reject(error);
+          }
+        })
+        .catch((err) => {
+          log.error(JSON.stringify(err));
+          const error = {
+            status: 400,
+            error: {
+              message: 'Bad Request',
+            },
+          };
+          reject(error);
+        });
+    });
+    return getByIdPromise;
   },
   // Creates an entry in DB table with the given payload
   create: (model, payload) => {
@@ -89,7 +119,7 @@ module.exports = {
               message: 'Bad Request',
             },
           };
-          reject(new Error(error));
+          reject(error);
         });
     });
     return createPromise;
@@ -109,7 +139,7 @@ module.exports = {
               message: 'Bad Request',
             },
           };
-          reject(new Error(error));
+          reject(error);
         });
     });
     return updatePromise;
@@ -129,7 +159,7 @@ module.exports = {
               message: 'Bad Request',
             },
           };
-          reject(new Error(error));
+          reject(error);
         });
     });
     return destroyPromise;

@@ -20,7 +20,7 @@ module.exports = {
   getCategoryDetail: async (req, res) => {
     if (req) {
       try {
-        const category = await crudUtil.getOne(productModel.Category, req.params.id);
+        const category = await crudUtil.getById(productModel.Category, req.params.id);
         res.status(200);
         res.json({ category });
       } catch (err) {

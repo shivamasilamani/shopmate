@@ -20,7 +20,7 @@ module.exports = {
   getDepartmentDetail: async (req, res) => {
     if (req) {
       try {
-        const department = await crudUtil.getOne(productModel.Department, req.params.id);
+        const department = await crudUtil.getById(productModel.Department, req.params.id);
         res.status(200);
         res.json({ department });
       } catch (err) {

@@ -4,9 +4,9 @@ const dbConfig = require('../config/db.config');
 const sequelizeInstance = dbConfig.dbInstance;
 
 module.exports = {
-  Orders: sequelizeInstance.define('orders', {
+  Orders: sequelizeInstance.define('seq_orders', {
     order_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -24,7 +24,7 @@ module.exports = {
       allowNull: false,
     },
     status: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       defaultValue: 0,
       allowNull: false,
     },
@@ -32,7 +32,7 @@ module.exports = {
       type: Sequelize.STRING(255),
     },
     customer_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
     },
     auth_code: {
       type: Sequelize.STRING(50),
@@ -41,31 +41,27 @@ module.exports = {
       type: Sequelize.STRING(50),
     },
     shipping_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
     },
     tax_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'orders',
   }),
-  Order_Detail: sequelizeInstance.define('order_detail', {
+  Order_Detail: sequelizeInstance.define('seq_order_detail', {
     item_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     order_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     product_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
-    attributes: {
+    attribs: {
       type: Sequelize.STRING(1000),
       allowNull: false,
     },
@@ -75,20 +71,16 @@ module.exports = {
       allowNull: false,
     },
     quantity: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     unit_cost: {
       type: Sequelize.DECIMAL(10, 2),
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'order_detail',
   }),
-  Shipping_Region: sequelizeInstance.define('shipping_region', {
+  Shipping_Region: sequelizeInstance.define('seq_shipping_region', {
     shipping_region_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -96,14 +88,10 @@ module.exports = {
       type: Sequelize.STRING(100),
       allowNull: false,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'shipping_region',
   }),
-  Shipping: sequelizeInstance.define('shipping', {
+  Shipping: sequelizeInstance.define('seq_shipping', {
     shipping_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -116,17 +104,13 @@ module.exports = {
       allowNull: false,
     },
     shipping_region_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'shipping',
   }),
-  Tax: sequelizeInstance.define('tax', {
+  Tax: sequelizeInstance.define('seq_tax', {
     tax_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -138,19 +122,15 @@ module.exports = {
       type: Sequelize.NUMERIC(10, 2),
       allowNull: false,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'tax',
   }),
-  Audit: sequelizeInstance.define('audit', {
+  Audit: sequelizeInstance.define('seq_audit', {
     audit_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     order_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     created_on: {
@@ -162,12 +142,8 @@ module.exports = {
       allowNull: false,
     },
     code: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'audit',
   }),
 };

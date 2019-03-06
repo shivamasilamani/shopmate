@@ -4,9 +4,9 @@ const dbConfig = require('../config/db.config');
 const sequelizeInstance = dbConfig.dbInstance;
 
 module.exports = {
-  Shopping_Cart: sequelizeInstance.define('shopping_cart', {
+  Shopping_Cart: sequelizeInstance.define('seq_shopping_cart', {
     item_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -15,7 +15,7 @@ module.exports = {
       allowNull: false,
     },
     product_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     attribs: {
@@ -23,7 +23,7 @@ module.exports = {
       allowNull: false,
     },
     quantity: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     buy_now: {
@@ -31,13 +31,5 @@ module.exports = {
       defaultValue: true,
       allowNull: false,
     },
-    added_on: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-  },
-  {
-    timestamps: false,
-    tableName: 'shopping_cart',
   }),
 };

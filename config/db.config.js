@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const log = require('./log.config');
+const config = require('../config.json');
 
 const options = {
   dialect: 'mysql',
@@ -14,23 +15,36 @@ const options = {
 
 if (process.env.NODE_ENV === 'production') {
   options.dialectOptions = {
-    socketPath: '/cloudsql/shopmate:us-west1:shopmate',
+    socketPath: config.MYSQL_SOCKET_PATH,
   };
 } else {
-  options.host = '35.230.60.71';
-  options.port = '3306';
+  options.host = config.MYSQL_HOST;
+  options.port = config.MYSQL_PORT;
 }
-const sequelize = new Sequelize('products', 'msiv', 'bJTvqPFzqV6pq2i', options);
-
-sequelize
-  .authenticate()
-  .then(() => {
-    log.info('Connection has been established successfully.');
-  })
-  .catch((err) => {
-    log.error('Connection to database failed:', err);
-  });
+const sequelize = new Sequelize(
+  config.MYSQL_DATABASE,
+  config.MYSQL_USER,
+  config.MYSQL_PASSWORD,
+  options,
+);
 
 module.exports = {
+  login: () => {
+    const promise = new Promise((resolve, reject) => {
+      sequelize
+        .authenticate()
+        .then(() => {
+          const msg = 'Database connection has been established successfully!';
+          log.info(msg);
+          resolve();
+        })
+        .catch((err) => {
+          const msg = 'Database connection failed!';
+          log.error(msg, err);
+          reject(new Error(msg));
+        });
+    });
+    return promise;
+  },
   dbInstance: sequelize,
 };

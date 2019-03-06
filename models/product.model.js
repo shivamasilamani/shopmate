@@ -4,9 +4,9 @@ const dbConfig = require('../config/db.config');
 const sequelizeInstance = dbConfig.dbInstance;
 
 module.exports = {
-  Department: sequelizeInstance.define('department', {
+  Department: sequelizeInstance.define('seq_department', {
     department_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -17,19 +17,15 @@ module.exports = {
     description: {
       type: Sequelize.STRING(1000),
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'department',
   }),
-  Category: sequelizeInstance.define('category', {
+  Category: sequelizeInstance.define('seq_category', {
     category_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     department_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     name: {
@@ -39,12 +35,8 @@ module.exports = {
     description: {
       type: Sequelize.STRING(1000),
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'category',
   }),
-  Product: sequelizeInstance.define('product', {
+  Product: sequelizeInstance.define('seq_product', {
     product_id: {
       type: Sequelize.INTEGER(11),
       primaryKey: true,
@@ -80,26 +72,27 @@ module.exports = {
     },
   },
   {
-    timestamps: false,
-    tableName: 'product',
+    indexes: [
+      {
+        name: 'idx_ft_product_name_description',
+        type: 'FULLTEXT',
+        fields: ['name', 'description'],
+      },
+    ],
   }),
-  Product_Category: sequelizeInstance.define('product_category', {
+  Product_Category: sequelizeInstance.define('seq_product_category', {
     product_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
     },
     category_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'product_category',
   }),
-  Attribute: sequelizeInstance.define('attribute', {
+  Attribute: sequelizeInstance.define('seq_attribute', {
     attribute_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -107,56 +100,44 @@ module.exports = {
       type: Sequelize.STRING(100),
       allowNull: false,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'attribute',
   }),
-  Attribute_Value: sequelizeInstance.define('attribute_value', {
+  Attribute_Value: sequelizeInstance.define('seq_attribute_value', {
     attribute_value_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     attribute_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     value: {
       type: Sequelize.STRING(100),
       allowNull: false,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'attribute_value',
   }),
-  Product_Attribute: sequelizeInstance.define('product_attribute', {
+  Product_Attribute: sequelizeInstance.define('seq_product_attribute', {
     product_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
     },
     attribute_value_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
     },
-  },
-  {
-    timestamps: false,
-    tableName: 'product_attribute',
   }),
-  Review: sequelizeInstance.define('product_attribute', {
+  Review: sequelizeInstance.define('seq_review', {
     review_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     customer_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     product_id: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     review: {
@@ -164,16 +145,8 @@ module.exports = {
       allowNull: false,
     },
     rating: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
-    created_on: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-  },
-  {
-    timestamps: false,
-    tableName: 'product_attribute',
   }),
 };

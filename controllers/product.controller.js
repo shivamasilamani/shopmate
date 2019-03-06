@@ -20,7 +20,7 @@ module.exports = {
   getProductDetail: async (req, res) => {
     if (req) {
       try {
-        const product = await crudUtil.getOne(productModel.Product, req.params.id);
+        const product = await crudUtil.getById(productModel.Product, req.params.id);
         res.status(200);
         res.json({ Product: product });
       } catch (err) {
