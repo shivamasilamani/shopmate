@@ -4,6 +4,7 @@ const googleTraceAgent = require('@google-cloud/trace-agent');
 const googleDebugAgent = require('@google-cloud/debug-agent');
 const passport = require('passport');
 const session = require('express-session');
+const compression = require('compression');
 const log = require('./config/log.config');
 const config = require('./config.json');
 const dbConfig = require('./config/db.config');
@@ -33,6 +34,9 @@ app.use(jsonParser);
 // Setup request logger. Using winston logger because gcloud supports this
 app.use(log.requestLogger);
 
+// Setup response payload compression
+app.use(compression());
+
 // Setup routes
 const userRoute = require('./routes/user.route');
 const productRoute = require('./routes/product.route');
@@ -53,6 +57,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
+  res.status(200);
   res.send(req.session);
 });
 
@@ -79,3 +84,6 @@ const port = process.env.PORT || 8000;
 app.listen(port, () => {
   log.info('App is running...');
 });
+
+// Export app for testing
+module.exports = app;

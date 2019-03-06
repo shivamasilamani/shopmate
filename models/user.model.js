@@ -14,6 +14,9 @@ const User = sequelizeInstance.define('seq_users', {
     type: Sequelize.STRING(100),
     allowNull: false,
     unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   hash: {
     type: Sequelize.STRING(5000),
@@ -27,7 +30,10 @@ const User = sequelizeInstance.define('seq_users', {
     type: Sequelize.STRING(100),
   },
   credit_card: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING(100),
+    validate: {
+      isCreditCard: true,
+    },
   },
   address_1: {
     type: Sequelize.STRING(100),
