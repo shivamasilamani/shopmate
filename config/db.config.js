@@ -13,18 +13,28 @@ const options = {
   },
 };
 
+let username = '';
+let password = '';
+let database = '';
+
 if (process.env.NODE_ENV === 'production') {
   options.dialectOptions = {
     socketPath: config.MYSQL_SOCKET_PATH,
   };
+  username = config.MYSQL_USER;
+  password = config.MYSQL_PASSWORD;
+  database = config.MYSQL_DATABASE;
 } else {
   options.host = config.MYSQL_HOST;
   options.port = config.MYSQL_PORT;
+  username = config.MYSQL_LOCAL_USER;
+  password = config.MYSQL_LOCAL_PASSWORD;
+  database = config.MYSQL_DATABASE;
 }
 const sequelize = new Sequelize(
-  config.MYSQL_DATABASE,
-  config.MYSQL_USER,
-  config.MYSQL_PASSWORD,
+  database,
+  username,
+  password,
   options,
 );
 

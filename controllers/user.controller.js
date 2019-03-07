@@ -1,6 +1,8 @@
+const jwt = require('jsonwebtoken');
 const userModel = require('../models/user.model');
+const config = require('../config');
 const crudUtil = require('../utils/crud.util');
-const errorUtil = require('../utils/error.util');
+const msgUtil = require('../utils/message.util');
 
 module.exports = {
   isLoggedIn: (req, res, next) => {
@@ -16,8 +18,8 @@ module.exports = {
       const option = { email: req.body.email };
       const user = await crudUtil.getOne(userModel.User, option);
       if (user) {
-        res.status(errorUtil.error_409.status);
-        res.json(errorUtil.error_409.error);
+        res.status(msgUtil.error_409.status);
+        res.json(msgUtil.error_409.error);
       }
     } catch (err) {
       if (err.status === 404) {
@@ -31,8 +33,8 @@ module.exports = {
             res.send('Created');
           })
           .catch(() => {
-            res.status(errorUtil.error_500.status);
-            res.send(errorUtil.error_500.error);
+            res.status(msgUtil.error_500.status);
+            res.send(msgUtil.error_500.error);
           });
       } else {
         res.status(err.status);
@@ -41,9 +43,19 @@ module.exports = {
     }
   },
   login: (req, res) => {
-    if (req) {
-      res.status(200);
-      res.json({ data: 'Login successfull!' });
+    if (req.user) {
+      const jwtObject = {
+        email: req.user.email,
+        name: req.user.name,
+      };
+      const token = jwt.sign(jwtObject, config.JWT_SECRET, { expiresIn: '12h' });
+      res.json({
+        access_token: token,
+        expires_in_seconds: 12 * 60 * 60,
+      });
+    } else {
+      res.status(msgUtil.error_400.status);
+      res.send(msgUtil.error_400.error);
     }
   },
   logout: (req, res) => {

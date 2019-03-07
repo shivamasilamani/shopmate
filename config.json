@@ -4,9 +4,11 @@
     "MYSQL_DATABASE": "products",
     "MYSQL_USER": "msiv",
     "MYSQL_PASSWORD": "bJTvqPFzqV6pq2i",
-    "MYSQL_HOST": "35.230.60.71",
+    "MYSQL_LOCAL_USER": "msiv",
+    "MYSQL_LOCAL_PASSWORD": "root",
+    "MYSQL_HOST": "INLN50898563A",
     "MYSQL_PORT": "3306",
     "MYSQL_SOCKET_PATH": "/cloudsql/shopmate:us-west1:shopmate",
     "MYSQL_INSTANCE_CONNECTION_NAME": "shopmate:us-west1:shopmate",
-    "SESSION_SECRET": ".sB^Zzu.$`raG8/RYEj)5VVr%~38J}Y{dgeW4sYerbT2rr(jM?wraMM=LpALWp;;"
+    "JWT_SECRET": ".sB^Zzu.$`raG8/RYEj)5VVr%~38J}Y{dgeW4sYerbT2rr(jM?wraMM=LpALWp;;"
 }
